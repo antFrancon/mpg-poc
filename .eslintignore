@@ -1,0 +1,8 @@
+node_modules
+package.json
+rn-cli.config.js
+.eslintrc.js
+android
+ios
+.jest
+coverage
