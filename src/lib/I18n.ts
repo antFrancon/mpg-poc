@@ -10,4 +10,17 @@ I18n.translations = {
 I18n.locale = 'fr';
 I18nManager.forceRTL(false);
 
-export { I18n };
+const getFormattedNumber = (numberToFormat: number, precision = 1) => {
+  const locale = I18n.currentLocale();
+
+  return I18n.toNumber(numberToFormat, {
+    precision,
+    separator: locale === 'fr' ? ',' : '.',
+  });
+};
+
+const getFormattedPercentage = (percentage: number) => {
+  return `${percentage * 100}%`;
+};
+
+export { I18n, getFormattedNumber, getFormattedPercentage };

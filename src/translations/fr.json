@@ -1,11 +1,19 @@
 {
   "PlayersExplorer": {
-    "player": "Joueur",
-    "fieldPosition": "Poste",
-    "team": "Equipe",
-    "mark": "Note",
-    "goals": "Buts",
-    "rating": "Cote",
-    "startingRate": "Titu"
+    "playerName": "Joueur",
+    "fieldPosition": "P.",
+    "club": "E.",
+    "avgRate": "N.",
+    "sumGoals": "B.",
+    "quotation": "C.",
+    "percentageStarter": "T.",
+    "fieldPositionLabels": {
+      "GK": "G",
+      "CD": "DC",
+      "LD": "DL",
+      "DM": "MD",
+      "OM": "MO",
+      "S": "A"
+    }
   }
 }
