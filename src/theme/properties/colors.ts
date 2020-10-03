@@ -1,4 +1,5 @@
-export enum TextColor {
+export enum ThemeColor {
+  White = 'white',
   Black = 'black',
   DarkGrey = 'darkGrey',
   LightGrey = 'lightGrey',
@@ -6,7 +7,8 @@ export enum TextColor {
   Green = 'green',
 }
 
-export const colors: Record<TextColor, string> = {
+export const colors: Record<ThemeColor, string> = {
+  white: 'rgb(255, 255, 255)',
   black: 'rgb(0, 0, 0)',
   darkGrey: 'rgb(149, 157, 175)',
   lightGrey: 'rgb(245, 246, 248)',
