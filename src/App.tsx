@@ -1,15 +1,18 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { ThemeProvider } from './lib';
+import { theme } from './theme';
+import { AppContainer } from './navigation';
 
 const App = () => {
   return (
-    <>
-      <SafeAreaView>
-        <View>
-          <Text>{'MPG'}</Text>
-        </View>
-      </SafeAreaView>
-    </>
+    <SafeAreaProvider>
+      <ThemeProvider theme={theme}>
+        <AppContainer />
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 };
 
