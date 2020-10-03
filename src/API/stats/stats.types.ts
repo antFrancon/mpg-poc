@@ -6,7 +6,7 @@ export interface ServerBasicStats {
 }
 
 export interface ServerPlayer {
-  id: 'player_11382';
+  id: string;
   firstname: string;
   lastname: string;
   position: number;
