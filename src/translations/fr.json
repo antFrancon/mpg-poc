@@ -1,0 +1,11 @@
+{
+  "PlayersExplorer": {
+    "player": "Joueur",
+    "fieldPosition": "Poste",
+    "team": "Equipe",
+    "mark": "Note",
+    "goals": "Buts",
+    "rating": "Cote",
+    "startingRate": "Titu"
+  }
+}
