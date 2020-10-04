@@ -1,3 +1,8 @@
+export enum PlayersActionTypes {
+  GET_PLAYERS = 'GET_PLAYERS',
+  GET_PLAYERS_SUCCESS = 'GET_PLAYERS_SUCCESS',
+}
+
 export enum FieldPosition {
   GK = 10,
   CD = 20,
@@ -5,6 +10,14 @@ export enum FieldPosition {
   DM = 31,
   OM = 32,
   S = 40,
+}
+
+export enum ChampionshipCode {
+  Ligue1 = 1,
+  Ligue2 = 4,
+  PremiereLeague = 2,
+  LaLiga = 3,
+  SerieA = 5,
 }
 
 export interface BasicStats {
@@ -23,5 +36,11 @@ export interface Player {
   teamId: number;
   quotation: number;
   club: string;
-  stats: BasicStats;
+  basicStats: BasicStats;
 }
+
+export type PlayersById = Record<string, Player>;
+export type PlayersBySeason = Record<number, PlayersById>;
+export type PlayersByChampionship = Record<ChampionshipCode, PlayersBySeason>;
+
+export interface PlayersState extends PlayersByChampionship {}

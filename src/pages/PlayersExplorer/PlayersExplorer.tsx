@@ -23,7 +23,7 @@ const players: Player[] = [
     teamId: 149,
     quotation: 13,
     club: 'Paris',
-    stats: { avgRate: 5.6, sumGoals: 0, currentChampionship: 1, percentageStarter: 0.45 },
+    basicStats: { avgRate: 5.6, sumGoals: 0, currentChampionship: 1, percentageStarter: 0.45 },
   },
   {
     playerId: 'player_4127',
@@ -34,7 +34,7 @@ const players: Player[] = [
     teamId: 149,
     quotation: 13,
     club: 'Paris',
-    stats: { avgRate: 5.6, sumGoals: 0, currentChampionship: 1, percentageStarter: 0.45 },
+    basicStats: { avgRate: 5.6, sumGoals: 0, currentChampionship: 1, percentageStarter: 0.45 },
   },
 ];
 // *************************************
@@ -67,12 +67,12 @@ const PLAYERS_LIST_COLUMNS_CONFIG: PlayersListColumnConfig[] = [
   {
     key: 'avgRate',
     flex: 1,
-    valueFormatter: ({ stats: { avgRate } }: Player) => getFormattedNumber(avgRate),
+    valueFormatter: ({ basicStats: { avgRate } }: Player) => getFormattedNumber(avgRate),
   },
   {
     key: 'sumGoals',
     flex: 1,
-    valueFormatter: ({ stats: { sumGoals } }: Player) => getFormattedNumber(sumGoals),
+    valueFormatter: ({ basicStats: { sumGoals } }: Player) => getFormattedNumber(sumGoals),
   },
   {
     key: 'quotation',
@@ -82,7 +82,7 @@ const PLAYERS_LIST_COLUMNS_CONFIG: PlayersListColumnConfig[] = [
   {
     key: 'percentageStarter',
     flex: 1.5,
-    valueFormatter: ({ stats: { percentageStarter } }: Player) =>
+    valueFormatter: ({ basicStats: { percentageStarter } }: Player) =>
       getFormattedPercentage(percentageStarter),
     emphasis: true,
   },
