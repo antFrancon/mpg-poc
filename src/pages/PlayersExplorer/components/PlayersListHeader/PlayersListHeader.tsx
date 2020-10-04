@@ -2,34 +2,29 @@ import React, { FunctionComponent } from 'react';
 import { View } from 'react-native';
 
 import styled, { css } from '../../../../lib/styledComponents';
-import { I18n } from '../../../../lib';
 import { Text } from '../../../../components';
 import { TextType, ThemeColor } from '../../../../theme/properties';
 
-export const PlayersListHeader: FunctionComponent<{}> = ({}) => {
+interface HeaderItem {
+  key: string;
+  label: string;
+  flex: number;
+}
+
+interface PlayersListHeaderProps {
+  headerItems: HeaderItem[];
+}
+
+export const PlayersListHeader: FunctionComponent<PlayersListHeaderProps> = ({ headerItems }) => {
   return (
     <LabelsRow>
-      <LabelContainer flex={3}>
-        <Label>{I18n.t('PlayersExplorer.playerName')}</Label>
-      </LabelContainer>
-      <LabelContainer flex={1}>
-        <Label>{I18n.t('PlayersExplorer.fieldPosition')}</Label>
-      </LabelContainer>
-      <LabelContainer flex={1}>
-        <Label>{I18n.t('PlayersExplorer.club')}</Label>
-      </LabelContainer>
-      <LabelContainer flex={1}>
-        <Label>{I18n.t('PlayersExplorer.avgRate')}</Label>
-      </LabelContainer>
-      <LabelContainer flex={1}>
-        <Label>{I18n.t('PlayersExplorer.sumGoals')}</Label>
-      </LabelContainer>
-      <LabelContainer flex={1}>
-        <Label>{I18n.t('PlayersExplorer.quotation')}</Label>
-      </LabelContainer>
-      <LabelContainer flex={1.5}>
-        <Label>{I18n.t('PlayersExplorer.percentageStarter')}</Label>
-      </LabelContainer>
+      {headerItems.map(({ key, label, flex }) => {
+        return (
+          <LabelContainer key={key} flex={flex}>
+            <Label>{label}</Label>
+          </LabelContainer>
+        );
+      })}
     </LabelsRow>
   );
 };
@@ -55,4 +50,6 @@ const LabelContainer = styled(View)<{ flex: number }>`
 const Label = styled(Text).attrs({
   color: ThemeColor.DarkGrey,
   type: TextType.TabHeader,
+  numberOfLines: 1,
+  ellipsizeMode: 'tail',
 })``;

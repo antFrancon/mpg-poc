@@ -1,12 +1,12 @@
 {
   "PlayersExplorer": {
     "playerName": "Joueur",
-    "fieldPosition": "P.",
-    "club": "E.",
-    "avgRate": "N.",
-    "sumGoals": "B.",
-    "quotation": "C.",
-    "percentageStarter": "T.",
+    "fieldPosition": "Pos.",
+    "club": "Eq.",
+    "avgRate": "Not.",
+    "sumGoals": "Bu.",
+    "quotation": "Cot.",
+    "percentageStarter": "Titu.",
     "fieldPositionLabels": {
       "GK": "G",
       "CD": "DC",

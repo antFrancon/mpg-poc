@@ -1,44 +1,31 @@
 import React, { FunctionComponent } from 'react';
 import { View } from 'react-native';
 
-import { I18n, getFormattedNumber, getFormattedPercentage } from '../../../../lib';
 import styled, { css } from '../../../../lib/styledComponents';
 import { Text } from '../../../../components';
-import { FieldPosition, Player } from '../../../../modules';
 import { TextType, ThemeColor } from '../../../../theme/properties';
 
-interface Props {
-  playerData: Player;
+interface RowItem {
+  key: string;
+  value: string;
+  flex: number;
+  emphasis?: boolean;
 }
 
-export const PlayersListItem: FunctionComponent<Props> = ({
-  playerData: { lastname, fieldPosition, club, stats, quotation },
-}) => {
+interface PlayersListItemProps {
+  rowItems: RowItem[];
+}
+
+export const PlayersListItem: FunctionComponent<PlayersListItemProps> = ({ rowItems }) => {
   return (
     <ValuesRow>
-      <ValueContainer flex={3}>
-        <Value type={TextType.TabRowBold}>{lastname}</Value>
-      </ValueContainer>
-      <ValueContainer flex={1}>
-        <Value type={TextType.TabRow}>
-          {I18n.t(`PlayersExplorer.fieldPositionLabels.${FieldPosition[fieldPosition]}`)}
-        </Value>
-      </ValueContainer>
-      <ValueContainer flex={1}>
-        <Value type={TextType.TabRow}>{club}</Value>
-      </ValueContainer>
-      <ValueContainer flex={1}>
-        <Value type={TextType.TabRow}>{getFormattedNumber(stats.avgRate)}</Value>
-      </ValueContainer>
-      <ValueContainer flex={1}>
-        <Value type={TextType.TabRow}>{stats.sumGoals}</Value>
-      </ValueContainer>
-      <ValueContainer flex={1}>
-        <Value type={TextType.TabRow}>{quotation}</Value>
-      </ValueContainer>
-      <ValueContainer flex={1.5}>
-        <Value type={TextType.TabRowBold}>{getFormattedPercentage(stats.percentageStarter)}</Value>
-      </ValueContainer>
+      {rowItems.map(({ key, value, flex, emphasis = false }) => {
+        return (
+          <ValueContainer key={key} flex={flex}>
+            <Value type={emphasis ? TextType.TabRowBold : TextType.TabRow}>{value}</Value>
+          </ValueContainer>
+        );
+      })}
     </ValuesRow>
   );
 };
@@ -66,4 +53,6 @@ const ValueContainer = styled(View)<{ flex: number }>`
 
 const Value = styled(Text).attrs({
   color: ThemeColor.Black,
+  numberOfLines: 1,
+  ellipsizeMode: 'tail',
 })``;
