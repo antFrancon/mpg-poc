@@ -20,7 +20,7 @@ const getFormattedNumber = (numberToFormat: number, precision = 1) => {
 };
 
 const getFormattedPercentage = (percentage: number) => {
-  return `${percentage * 100}%`;
+  return `${Math.round(percentage * 100 * 100) / 100}%`;
 };
 
 export { I18n, getFormattedNumber, getFormattedPercentage };

@@ -5,7 +5,7 @@ import { ErrorsActionObjectTypes } from './errors.actions';
 
 export const initialErrorsState = {};
 
-export const errorReducer: Reducer<ErrorsState, ErrorsActionObjectTypes> = (
+export const errorsReducer: Reducer<ErrorsState, ErrorsActionObjectTypes> = (
   state = initialErrorsState,
   action
 ) => {

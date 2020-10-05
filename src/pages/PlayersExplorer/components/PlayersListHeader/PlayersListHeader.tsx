@@ -15,19 +15,21 @@ interface PlayersListHeaderProps {
   headerItems: HeaderItem[];
 }
 
-export const PlayersListHeader: FunctionComponent<PlayersListHeaderProps> = ({ headerItems }) => {
-  return (
-    <LabelsRow>
-      {headerItems.map(({ key, label, flex }) => {
-        return (
-          <LabelContainer key={key} flex={flex}>
-            <Label>{label}</Label>
-          </LabelContainer>
-        );
-      })}
-    </LabelsRow>
-  );
-};
+export const PlayersListHeader: FunctionComponent<PlayersListHeaderProps> = React.memo(
+  ({ headerItems }) => {
+    return (
+      <LabelsRow>
+        {headerItems.map(({ key, label, flex }) => {
+          return (
+            <LabelContainer key={key} flex={flex}>
+              <Label>{label}</Label>
+            </LabelContainer>
+          );
+        })}
+      </LabelsRow>
+    );
+  }
+);
 
 const LabelsRow = styled(View)`
   flex-direction: row;

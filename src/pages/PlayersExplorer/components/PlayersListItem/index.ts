@@ -1,0 +1,1 @@
+export { PlayersListItem } from './PlayersListItem';

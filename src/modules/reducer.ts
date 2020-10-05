@@ -14,8 +14,14 @@ const persistConfig: PersistConfig<IAppState> = {
 };
 
 const reducers: ReducersMapObject = {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  //@ts-ignore
   loaders: loadersReducer,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  //@ts-ignore
   errors: errorsReducer,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  //@ts-ignore
   players: playersReducer,
 };
 

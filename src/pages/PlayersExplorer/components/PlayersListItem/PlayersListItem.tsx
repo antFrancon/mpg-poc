@@ -16,19 +16,21 @@ interface PlayersListItemProps {
   rowItems: RowItem[];
 }
 
-export const PlayersListItem: FunctionComponent<PlayersListItemProps> = ({ rowItems }) => {
-  return (
-    <ValuesRow>
-      {rowItems.map(({ key, value, flex, emphasis = false }) => {
-        return (
-          <ValueContainer key={key} flex={flex}>
-            <Value type={emphasis ? TextType.TabRowBold : TextType.TabRow}>{value}</Value>
-          </ValueContainer>
-        );
-      })}
-    </ValuesRow>
-  );
-};
+export const PlayersListItem: FunctionComponent<PlayersListItemProps> = React.memo(
+  ({ rowItems }) => {
+    return (
+      <ValuesRow>
+        {rowItems.map(({ key, value, flex, emphasis = false }) => {
+          return (
+            <ValueContainer key={key} flex={flex}>
+              <Value type={emphasis ? TextType.TabRowBold : TextType.TabRow}>{value}</Value>
+            </ValueContainer>
+          );
+        })}
+      </ValuesRow>
+    );
+  }
+);
 
 const ValuesRow = styled(View)`
   flex-direction: row;

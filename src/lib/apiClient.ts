@@ -11,6 +11,6 @@ const apiEnv = {
   BASE_SERVER_URL: 'https://api.monpetitgazon.com/',
 };
 
-export const statsClient = new StatsApi({
+export const statsApiClient = new StatsApi({
   environment: apiEnv,
 });

@@ -12,7 +12,7 @@ export enum FieldPosition {
   S = 40,
 }
 
-export enum ChampionshipCode {
+export enum ChampionshipId {
   Ligue1 = 1,
   Ligue2 = 4,
   PremiereLeague = 2,
@@ -21,7 +21,7 @@ export enum ChampionshipCode {
 }
 
 export interface BasicStats {
-  avgRate: number;
+  avgRate: number | '-';
   sumGoals: number;
   currentChampionship: number;
   percentageStarter: number;
@@ -41,6 +41,6 @@ export interface Player {
 
 export type PlayersById = Record<string, Player>;
 export type PlayersBySeason = Record<number, PlayersById>;
-export type PlayersByChampionship = Record<ChampionshipCode, PlayersBySeason>;
+export type PlayersByChampionship = Record<ChampionshipId, PlayersBySeason>;
 
 export interface PlayersState extends PlayersByChampionship {}

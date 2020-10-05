@@ -1,5 +1,5 @@
 export interface ServerBasicStats {
-  avgRate: string;
+  avgRate: number | '-';
   sumGoals: number;
   currentChampionship: number;
   percentageStarter: number;

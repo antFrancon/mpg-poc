@@ -1,43 +1,22 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { useMemoOne } from 'use-memo-one';
 
 import { Page } from '../../components';
 import styled from '../../lib/styledComponents';
-import { FieldPosition, Player } from '../../modules';
+import {
+  ChampionshipId,
+  FieldPosition,
+  Player,
+  PlayersActions,
+  playersSelectorFactory,
+} from '../../modules';
 import { I18n, getFormattedNumber, getFormattedPercentage } from '../../lib';
+import { useDispatchCallback } from '../../services';
 
-import { PlayersListHeader } from './components';
-import { PlayersListItem } from './components/PlayersListItem/PlayersListItem';
-
-// These hard coded values will be replaced by real data from server soon
-// ***********************************************
-const players: Player[] = [
-  {
-    playerId: 'player_4126',
-    firstname: 'Gianluigi',
-    lastname: 'Buffon',
-    position: 1,
-    fieldPosition: 10,
-    teamId: 149,
-    quotation: 13,
-    club: 'Paris',
-    basicStats: { avgRate: 5.6, sumGoals: 0, currentChampionship: 1, percentageStarter: 0.45 },
-  },
-  {
-    playerId: 'player_4127',
-    firstname: 'Gianluigi',
-    lastname: 'Buffon',
-    position: 1,
-    fieldPosition: 10,
-    teamId: 149,
-    quotation: 13,
-    club: 'Paris',
-    basicStats: { avgRate: 5.6, sumGoals: 0, currentChampionship: 1, percentageStarter: 0.45 },
-  },
-];
-// *************************************
+import { PlayersListHeader, PlayersListItem } from './components';
 
 interface PlayersListColumnConfig {
   key: string;
@@ -67,7 +46,8 @@ const PLAYERS_LIST_COLUMNS_CONFIG: PlayersListColumnConfig[] = [
   {
     key: 'avgRate',
     flex: 1,
-    valueFormatter: ({ basicStats: { avgRate } }: Player) => getFormattedNumber(avgRate),
+    valueFormatter: ({ basicStats: { avgRate } }: Player) =>
+      avgRate === '-' ? '-' : getFormattedNumber(avgRate),
   },
   {
     key: 'sumGoals',
@@ -88,7 +68,22 @@ const PLAYERS_LIST_COLUMNS_CONFIG: PlayersListColumnConfig[] = [
   },
 ];
 
-export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = () => {
+export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({ navigation }) => {
+  const getPlayers = useDispatchCallback(PlayersActions.getPlayers);
+
+  const championshipId = ChampionshipId.Ligue1;
+  const season = 2019;
+
+  useEffect(() => {
+    getPlayers(championshipId, season);
+    navigation.addListener('didFocus', () => {
+      getPlayers(championshipId, season);
+    });
+  }, [navigation, getPlayers, championshipId, season]);
+
+  const playersSelector = playersSelectorFactory(championshipId, season);
+  const players = useSelector(playersSelector);
+
   const renderPlayersListHeader = useMemoOne(
     () => () => (
       <PlayersListHeader

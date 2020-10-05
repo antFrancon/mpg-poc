@@ -17,5 +17,5 @@ export class StatsApi extends BaseApi {
     this.unauthenticatedClient
       .url(`stats/championship/${championshipId}/${seasonStartingYear}`)
       .get()
-      .res();
+      .json((res) => res as ServerPlayer[]);
 }

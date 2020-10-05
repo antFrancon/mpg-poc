@@ -1,10 +1,10 @@
 import { IAppState } from '../types';
 
-import { ChampionshipCode } from './players.types';
+import { ChampionshipId } from './players.types';
 
-export const getPlayersSelectorFactory = (championshipCode: ChampionshipCode, season: number) => (
+export const playersSelectorFactory = (championshipId: ChampionshipId, season: number) => (
   state: IAppState
 ) =>
-  state.players[championshipCode] && state.players[championshipCode][season]
-    ? Object.values(state.players[championshipCode][season])
+  state.players[championshipId] && state.players[championshipId][season]
+    ? Object.values(state.players[championshipId][season])
     : [];

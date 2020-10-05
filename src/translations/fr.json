@@ -1,4 +1,10 @@
 {
+  "GeneralErrors": {
+    "errorTitle": "Une erreur est survenue.",
+    "retry": "Réessayez.",
+    "internalServerErrorMessage": "Oups ! Une erreur est survenue ! Merci de réessayer :)",
+    "modalOkButton": "OK"
+  },
   "PlayersExplorer": {
     "playerName": "Joueur",
     "fieldPosition": "Pos.",
