@@ -7,6 +7,7 @@ export enum TextType {
   Title = 'title',
   Body = 'body',
   Button = 'button',
+  SmallButton = 'smallButton',
 }
 
 interface FontType {
@@ -55,5 +56,10 @@ export const fonts: Record<TextType, FontType> = {
     family: 'System',
     size: 16,
     weight: 'bold',
+  },
+  smallButton: {
+    family: 'System',
+    size: 12,
+    weight: 'normal',
   },
 };

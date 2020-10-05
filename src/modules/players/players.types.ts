@@ -12,6 +12,15 @@ export enum FieldPosition {
   S = 40,
 }
 
+export const FIELD_POSITIONS = [
+  FieldPosition.GK,
+  FieldPosition.CD,
+  FieldPosition.LD,
+  FieldPosition.DM,
+  FieldPosition.OM,
+  FieldPosition.S,
+];
+
 export enum ChampionshipId {
   Ligue1 = 1,
   Ligue2 = 4,
@@ -19,6 +28,14 @@ export enum ChampionshipId {
   LaLiga = 3,
   SerieA = 5,
 }
+
+export const CHAMPIONSHIP_IDS = [
+  ChampionshipId.Ligue1,
+  ChampionshipId.Ligue2,
+  ChampionshipId.PremiereLeague,
+  ChampionshipId.LaLiga,
+  ChampionshipId.SerieA,
+];
 
 export interface BasicStats {
   avgRate: number | '-';

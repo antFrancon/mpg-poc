@@ -8,7 +8,9 @@ import { Page } from '../../components';
 import styled, { css } from '../../lib/styledComponents';
 import {
   ChampionshipId,
+  CHAMPIONSHIP_IDS,
   FieldPosition,
+  FIELD_POSITIONS,
   Player,
   PlayersActions,
   playersSelectorFactory,
@@ -36,7 +38,7 @@ const PLAYERS_LIST_COLUMNS_CONFIG: PlayersListColumnConfig[] = [
     key: 'fieldPosition',
     flex: 1,
     valueFormatter: ({ fieldPosition }: Player) =>
-      I18n.t(`PlayersExplorer.fieldPositionLabels.${FieldPosition[fieldPosition]}`),
+      I18n.t(`PlayersExplorer.fieldPositionLabels.short.${FieldPosition[fieldPosition]}`),
   },
   {
     key: 'club',
@@ -75,17 +77,20 @@ const SEASON_OPTIONS = [
   { key: 2020, label: '2020/2021' },
 ];
 
-const CHAMPIONSHIP_OPTIONS = [
-  { key: ChampionshipId.Ligue1, label: 'Ligue 1' },
-  { key: ChampionshipId.Ligue2, label: 'Ligue 2' },
-  { key: ChampionshipId.PremiereLeague, label: 'Premiere league' },
-  { key: ChampionshipId.LaLiga, label: 'La liga' },
-  { key: ChampionshipId.SerieA, label: 'Serie A' },
-];
+const CHAMPIONSHIP_OPTIONS = CHAMPIONSHIP_IDS.map((championshipId) => ({
+  key: championshipId,
+  label: I18n.t(`PlayersExplorer.championshipLabels.${ChampionshipId[championshipId]}`),
+}));
+
+const FIELD_POSITION_OPTIONS = FIELD_POSITIONS.map((fieldPosition) => ({
+  key: fieldPosition,
+  label: I18n.t(`PlayersExplorer.fieldPositionLabels.full.${FieldPosition[fieldPosition]}`),
+}));
 
 export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({ navigation }) => {
   const [season, setSeason] = useState<number>(2019);
   const [championshipId, setchampionshipId] = useState<ChampionshipId>(ChampionshipId.Ligue1);
+  const [fieldPosition, setFieldPosition] = useState<FieldPosition>();
 
   const getPlayers = useDispatchCallback(PlayersActions.getPlayers);
 
@@ -96,7 +101,7 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
     });
   }, [navigation, getPlayers, championshipId, season]);
 
-  const playersSelector = playersSelectorFactory(championshipId, season);
+  const playersSelector = playersSelectorFactory(championshipId, season, fieldPosition);
   const players = useSelector(playersSelector);
 
   const renderPlayersListHeader = useMemoOne(
@@ -104,7 +109,7 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
       <PlayersListHeader
         headerItems={PLAYERS_LIST_COLUMNS_CONFIG.map(({ key, flex }) => ({
           key,
-          label: I18n.t(`PlayersExplorer.${key}`),
+          label: I18n.t(`PlayersExplorer.${key}.short`),
           flex,
         }))}
       />
@@ -131,17 +136,28 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
       <FiltersRow>
         <OptionPicker<ChampionshipId>
           options={CHAMPIONSHIP_OPTIONS}
-          selectedKey={championshipId}
           onChange={({ key: selectedChampionship }) => {
             setchampionshipId(selectedChampionship);
           }}
+          selectedKey={championshipId}
         />
         <OptionPicker<number>
           options={SEASON_OPTIONS}
-          selectedKey={season}
           onChange={({ key: selectedSeason }) => {
             setSeason(selectedSeason);
           }}
+          selectedKey={season}
+        />
+      </FiltersRow>
+      <FiltersRow>
+        <OptionPicker<FieldPosition>
+          options={FIELD_POSITION_OPTIONS}
+          onChange={({ key: selectedFieldPosition }) => {
+            setFieldPosition(selectedFieldPosition);
+          }}
+          selectedKey={fieldPosition}
+          initValue={I18n.t(`PlayersExplorer.fieldPosition.full`)}
+          onReset={() => setFieldPosition(undefined)}
         />
       </FiltersRow>
       <PlayersList

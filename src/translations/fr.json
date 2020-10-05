@@ -6,20 +6,37 @@
     "modalOkButton": "OK"
   },
   "PlayersExplorer": {
-    "playerName": "Joueur",
-    "fieldPosition": "Pos.",
-    "club": "Eq.",
-    "avgRate": "Not.",
-    "sumGoals": "Bu.",
-    "quotation": "Cot.",
-    "percentageStarter": "Titu.",
+    "playerName": { "short": "Joueur", "full": "Joueur" },
+    "fieldPosition": { "short": "Pos.", "full": "Poste" },
+    "club": { "short": "Eq.", "full": "Equipe" },
+    "avgRate": { "short": "Not.", "full": "Note" },
+    "sumGoals": { "short": "Bu.", "full": "Buts" },
+    "quotation": { "short": "Cot.", "full": "Cote" },
+    "percentageStarter": { "short": "Titu.", "full": "Titulaire" },
+    "championshipLabels": {
+      "Ligue1": "Ligue 1",
+      "Ligue2": "Ligue 2",
+      "PremiereLeague": "Premiere League",
+      "LaLiga": "La Liga",
+      "SerieA": "Serie A"
+    },
     "fieldPositionLabels": {
-      "GK": "G",
-      "CD": "DC",
-      "LD": "DL",
-      "DM": "MD",
-      "OM": "MO",
-      "S": "A"
+      "short": {
+        "GK": "G",
+        "CD": "DC",
+        "LD": "DL",
+        "DM": "MD",
+        "OM": "MO",
+        "S": "A"
+      },
+      "full": {
+        "GK": "Gardien",
+        "CD": "Défenseur central",
+        "LD": "Défenseur latéral",
+        "DM": "Milieu défensif",
+        "OM": "Milieu offensif",
+        "S": "Attaquant"
+      }
     }
   }
 }
