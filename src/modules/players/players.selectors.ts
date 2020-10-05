@@ -1,21 +1,25 @@
+import { defaultMemoize } from 'reselect';
+
 import { IAppState } from '../types';
+import { createObjectSelector } from '../../services';
 
 import { ChampionshipId, FieldPosition } from './players.types';
 
-export const playersSelectorFactory = (
-  championshipId: ChampionshipId,
-  season: number,
-  fieldPosition?: FieldPosition
-) => (state: IAppState) => {
-  if (!(state.players[championshipId] && state.players[championshipId][season])) {
-    return [];
-  }
+const playersSelector = (state: IAppState) => state.players;
 
-  let players = Object.values(state.players[championshipId][season]);
+export const playersSelectorFactory = defaultMemoize(
+  (championshipId: ChampionshipId, season: number, fieldPosition?: FieldPosition) =>
+    createObjectSelector([playersSelector], (playersRecord) => {
+      if (!(playersRecord[championshipId] && playersRecord[championshipId][season])) {
+        return [];
+      }
 
-  if (fieldPosition !== undefined) {
-    players = players.filter((player) => player.fieldPosition === fieldPosition);
-  }
+      let players = Object.values(playersRecord[championshipId][season]);
 
-  return players.sort((playerA, playerB) => playerB.quotation - playerA.quotation);
-};
+      if (fieldPosition !== undefined) {
+        players = players.filter((player) => player.fieldPosition === fieldPosition);
+      }
+
+      return players.sort((playerA, playerB) => playerB.quotation - playerA.quotation);
+    })
+);

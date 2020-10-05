@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, ActivityIndicator } from 'react-native';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { useMemoOne } from 'use-memo-one';
 
@@ -11,6 +11,8 @@ import {
   CHAMPIONSHIP_IDS,
   FieldPosition,
   FIELD_POSITIONS,
+  isLoadingSelectorFactory,
+  LoaderName,
   Player,
   PlayersActions,
   playersSelectorFactory,
@@ -103,6 +105,8 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
 
   const playersSelector = playersSelectorFactory(championshipId, season, fieldPosition);
   const players = useSelector(playersSelector);
+  const isLoadingPlayersSelector = isLoadingSelectorFactory(LoaderName.GetPlayers);
+  const isLoadingPlayers = useSelector(isLoadingPlayersSelector);
 
   const renderPlayersListHeader = useMemoOne(
     () => () => (
@@ -116,6 +120,7 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
     ),
     []
   );
+
   const renderPlayersListItem = useMemoOne(
     () => ({ item }: { item: Player }) => (
       <PlayersListItem
@@ -129,42 +134,75 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
     ),
     []
   );
+
   const playerKeyExtractor = useMemoOne(() => (item: Player) => `player-${item.playerId}`, []);
+
+  const renderChampionshipFilter = useMemoOne(
+    () => () => (
+      <OptionPicker<ChampionshipId>
+        options={CHAMPIONSHIP_OPTIONS}
+        onChange={({ key: selectedChampionship }) => {
+          setchampionshipId(selectedChampionship);
+        }}
+        selectedKey={championshipId}
+      />
+    ),
+    [championshipId, setchampionshipId]
+  );
+
+  const renderSeasonFilter = useMemoOne(
+    () => () => (
+      <OptionPicker<number>
+        options={SEASON_OPTIONS}
+        onChange={({ key: selectedSeason }) => {
+          setSeason(selectedSeason);
+        }}
+        selectedKey={season}
+      />
+    ),
+    [season, setSeason]
+  );
+
+  const renderFieldPositionFilter = useMemoOne(
+    () => () => (
+      <OptionPicker<FieldPosition>
+        options={FIELD_POSITION_OPTIONS}
+        onChange={({ key: selectedFieldPosition }) => {
+          setFieldPosition(selectedFieldPosition);
+        }}
+        selectedKey={fieldPosition}
+        initValue={I18n.t(`PlayersExplorer.fieldPosition.full`)}
+        onReset={() => setFieldPosition(undefined)}
+      />
+    ),
+    [fieldPosition, setFieldPosition]
+  );
+
+  const renderEmptyPlayersList = useMemoOne(
+    () => () =>
+      isLoadingPlayers ? (
+        <LoaderContainer>
+          <Loader />
+        </LoaderContainer>
+      ) : (
+        <></>
+      ),
+    [isLoadingPlayers]
+  );
 
   return (
     <PageContainer>
       <FiltersRow>
-        <OptionPicker<ChampionshipId>
-          options={CHAMPIONSHIP_OPTIONS}
-          onChange={({ key: selectedChampionship }) => {
-            setchampionshipId(selectedChampionship);
-          }}
-          selectedKey={championshipId}
-        />
-        <OptionPicker<number>
-          options={SEASON_OPTIONS}
-          onChange={({ key: selectedSeason }) => {
-            setSeason(selectedSeason);
-          }}
-          selectedKey={season}
-        />
+        {renderChampionshipFilter()}
+        {renderSeasonFilter()}
       </FiltersRow>
-      <FiltersRow>
-        <OptionPicker<FieldPosition>
-          options={FIELD_POSITION_OPTIONS}
-          onChange={({ key: selectedFieldPosition }) => {
-            setFieldPosition(selectedFieldPosition);
-          }}
-          selectedKey={fieldPosition}
-          initValue={I18n.t(`PlayersExplorer.fieldPosition.full`)}
-          onReset={() => setFieldPosition(undefined)}
-        />
-      </FiltersRow>
+      <FiltersRow>{renderFieldPositionFilter()}</FiltersRow>
+      {renderPlayersListHeader()}
       <PlayersList
-        ListHeaderComponent={renderPlayersListHeader}
         data={players}
         renderItem={renderPlayersListItem}
         keyExtractor={playerKeyExtractor}
+        ListEmptyComponent={renderEmptyPlayersList}
       />
     </PageContainer>
   );
@@ -186,3 +224,13 @@ const FiltersRow = styled(View)`
 const PlayersList = React.memo(styled(FlatList as new () => FlatList<Player>)`
   flex: 1;
 `);
+
+const LoaderContainer = styled(View)`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Loader = styled(ActivityIndicator).attrs(({ theme }) => ({
+  color: theme.colors.green,
+}))``;

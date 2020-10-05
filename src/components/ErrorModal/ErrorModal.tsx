@@ -38,14 +38,14 @@ const ModalContent = styled(View)`
   justify-content: center;
   ${({ theme }) => css`
     background-color: ${theme.colors.white};
-    margin-horizontal: ${theme.spacing.x2};
+    margin-horizontal: ${theme.spacing.x2}px;
     padding: ${theme.spacing.x3}px;
   `}
-  border-radius: 8;
+  border-radius: 8px;
 `;
 
 const ModalTitle = styled(Text)`
-  margin-bottom: ${({ theme }): number => theme.spacing.x4};
+  margin-bottom: ${({ theme }): number => theme.spacing.x4}px;
 `;
 
 const ModalContentContainer = styled(View)`
@@ -55,9 +55,9 @@ const ModalContentContainer = styled(View)`
 `;
 
 const ParagraphTextA = styled(Text)`
-  padding-bottom: ${({ theme }): number => theme.spacing.x1};
+  padding-bottom: ${({ theme }): number => theme.spacing.x1}px;
 `;
 
 const ParagraphTextB = styled(Text)`
-  padding-bottom: ${({ theme }): number => theme.spacing.x3};
+  padding-bottom: ${({ theme }): number => theme.spacing.x3}px;
 `;

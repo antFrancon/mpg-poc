@@ -25,11 +25,11 @@ export const Button: FunctionComponent<ButtonProps> = ({
 const TouchableContainer = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
-  height: 48;
+  height: 48px;
   width: auto;
   border-style: solid;
-  border-width: 1;
-  border-radius: 4;
+  border-width: 1px;
+  border-radius: 4px;
   ${({ theme }) => css`
     background-color: ${theme.colors.blue};
     border-color: ${theme.colors.green};
