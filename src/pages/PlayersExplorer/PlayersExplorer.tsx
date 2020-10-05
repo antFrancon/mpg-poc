@@ -20,7 +20,7 @@ import {
 import { I18n, getFormattedNumber, getFormattedPercentage } from '../../lib';
 import { useDispatchCallback } from '../../services';
 
-import { PlayersListHeader, PlayersListItem, OptionPicker } from './components';
+import { PlayersListHeader, PlayersListItem, OptionPicker, TextFilter } from './components';
 
 interface PlayersListColumnConfig {
   key: string;
@@ -93,6 +93,7 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
   const [season, setSeason] = useState<number>(2019);
   const [championshipId, setchampionshipId] = useState<ChampionshipId>(ChampionshipId.Ligue1);
   const [fieldPosition, setFieldPosition] = useState<FieldPosition>();
+  const [name, setName] = useState<string>();
 
   const getPlayers = useDispatchCallback(PlayersActions.getPlayers);
 
@@ -103,7 +104,7 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
     });
   }, [navigation, getPlayers, championshipId, season]);
 
-  const playersSelector = playersSelectorFactory(championshipId, season, fieldPosition);
+  const playersSelector = playersSelectorFactory(championshipId, season, fieldPosition, name);
   const players = useSelector(playersSelector);
   const isLoadingPlayersSelector = isLoadingSelectorFactory(LoaderName.GetPlayers);
   const isLoadingPlayers = useSelector(isLoadingPlayersSelector);
@@ -171,8 +172,25 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
           setFieldPosition(selectedFieldPosition);
         }}
         selectedKey={fieldPosition}
-        initValue={I18n.t(`PlayersExplorer.fieldPosition.full`)}
+        placeholder={I18n.t(`PlayersExplorer.fieldPosition.full`)}
         onReset={() => setFieldPosition(undefined)}
+      />
+    ),
+    [fieldPosition, setFieldPosition]
+  );
+
+  const renderNameFilter = useMemoOne(
+    () => () => (
+      <TextFilter
+        onChange={(inputText: string) => {
+          if (inputText.length > 0) {
+            setName(inputText);
+          } else {
+            setName(undefined);
+          }
+        }}
+        currentValue={name}
+        placeholder={I18n.t(`PlayersExplorer.playerName.full`)}
       />
     ),
     [fieldPosition, setFieldPosition]
@@ -196,7 +214,10 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
         {renderChampionshipFilter()}
         {renderSeasonFilter()}
       </FiltersRow>
-      <FiltersRow>{renderFieldPositionFilter()}</FiltersRow>
+      <FiltersRow>
+        {renderNameFilter()}
+        {renderFieldPositionFilter()}
+      </FiltersRow>
       {renderPlayersListHeader()}
       <PlayersList
         data={players}

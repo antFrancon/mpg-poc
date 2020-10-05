@@ -46,7 +46,7 @@ export interface BasicStats {
 
 export interface Player {
   playerId: string;
-  firstname: string;
+  firstname: string | null;
   lastname: string;
   position: number;
   fieldPosition: FieldPosition;

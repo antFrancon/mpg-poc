@@ -15,7 +15,7 @@ interface OptionPickerProps<T> {
   options: PickerOption<T>[];
   onChange: (option: PickerOption<T>) => void;
   selectedKey?: T;
-  initValue?: string;
+  placeholder?: string;
   onReset?: () => void;
 }
 
@@ -23,18 +23,18 @@ export const OptionPicker = <T,>({
   options,
   onChange,
   selectedKey,
-  initValue,
+  placeholder,
   onReset,
 }: OptionPickerProps<T>) => {
   return (
     <PickerContainer>
-      <ModalSelector<PickerOption<T>>
+      <Picker<PickerOption<T>>
         data={options}
         // TODO: Patch 'react-native-modal-selector' to allow genericity for prop 'selectedKey'
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         selectedKey={selectedKey}
-        initValue={initValue}
+        initValue={placeholder}
         onChange={onChange}
       />
       {onReset && selectedKey && (
@@ -47,21 +47,34 @@ export const OptionPicker = <T,>({
 };
 
 const PickerContainer = styled(View)`
+  flex: 1;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  border-width: 1px;
+  border-radius: 4px;
+  height: 35px;
   ${({ theme }) => css`
     padding: ${theme.spacing.x1}px;
+    margin-horizontal: ${theme.spacing.x1}px;
     background-color: ${theme.colors.white};
     border-color: ${theme.colors.darkGrey};
   `}
 `;
 
+const Picker = (styled(ModalSelector).attrs({
+  selectStyle: { borderWidth: 0, padding: 0 },
+})`` as React.ComponentType) as new <T>() => ModalSelector<T>;
+
 const ResetButton = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
+  ${({ theme }) => css`
+    padding: ${theme.spacing.x1}px;
+    margin-top: ${-theme.spacing.x1}px;
+  `}
 `;
 
 const Label = styled(Text).attrs({

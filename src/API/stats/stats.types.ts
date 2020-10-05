@@ -7,7 +7,7 @@ export interface ServerBasicStats {
 
 export interface ServerPlayer {
   id: string;
-  firstname: string;
+  firstname: string | null;
   lastname: string;
   position: number;
   ultraPosition: number;

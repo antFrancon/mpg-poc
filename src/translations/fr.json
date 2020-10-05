@@ -6,7 +6,7 @@
     "modalOkButton": "OK"
   },
   "PlayersExplorer": {
-    "playerName": { "short": "Joueur", "full": "Joueur" },
+    "playerName": { "short": "Joueur", "full": "Nom Joueur" },
     "fieldPosition": { "short": "Pos.", "full": "Poste" },
     "club": { "short": "Eq.", "full": "Equipe" },
     "avgRate": { "short": "Not.", "full": "Note" },
