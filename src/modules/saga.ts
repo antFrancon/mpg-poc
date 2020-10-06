@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 
-import { getPlayersWatcher } from './players';
+import { getPlayersWatcher, getPlayerDetailsWatcher } from './players';
 
 export function* watchAll() {
-  yield all([getPlayersWatcher()]);
+  yield all([getPlayersWatcher(), getPlayerDetailsWatcher()]);
 }

@@ -52,7 +52,7 @@ export interface ServerMatchStats {
     clean_sheet: number;
     dive_save: number;
     error_lead_to_goal: number;
-    goals_conceded: 3;
+    goals_conceded: number;
     penalty_faced: number;
     penalty_save: number;
     red_card: number;

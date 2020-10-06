@@ -1,6 +1,8 @@
 export enum PlayersActionTypes {
   GET_PLAYERS = 'GET_PLAYERS',
   GET_PLAYERS_SUCCESS = 'GET_PLAYERS_SUCCESS',
+  GET_PLAYER_DETAILS = 'GET_PLAYER_DETAILS',
+  GET_PLAYER_DETAILS_SUCCESS = 'GET_PLAYER_DETAILS_SUCCESS ',
 }
 
 export enum FieldPosition {
@@ -76,7 +78,7 @@ export interface MatchStats {
     clean_sheet: number;
     dive_save: number;
     error_lead_to_goal: number;
-    goals_conceded: 3;
+    goals_conceded: number;
     penalty_faced: number;
     penalty_save: number;
     red_card: number;
@@ -107,7 +109,7 @@ export interface PlayerAdvancedStats {
 }
 
 export interface ChampionshipStats {
-  active: 0 | 1;
+  active: boolean;
   availableSince: Date;
   championship: ChampionshipId;
   teamId: string;
@@ -129,8 +131,8 @@ export interface PlayerDetails {
   championship: ChampionshipId;
   championships: Record<string, ChampionshipStats>;
   availableSeasons: number[];
-  type: 'player';
-  active: 0 | 1;
+  type: string;
+  active: boolean;
   birthDate: Date;
   jerseyNum: string;
   joinDate: Date;

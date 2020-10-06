@@ -5,6 +5,7 @@ export enum LoadersActionTypes {
 
 export enum LoaderName {
   GetPlayers = 'GetPlayers',
+  GetPlayerDetails = 'GetPlayerDetails',
 }
 
 export type LoadersState = { [name in LoaderName]?: boolean };
