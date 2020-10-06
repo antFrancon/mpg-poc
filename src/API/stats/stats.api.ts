@@ -1,6 +1,6 @@
 import { BaseApi, ApiParams } from '../api';
 
-import { ServerPlayer } from './stats.types';
+import { ServerPlayer, ServerPlayerDetails } from './stats.types';
 
 export class StatsApi extends BaseApi {
   constructor(apiParams: ApiParams) {
@@ -18,4 +18,17 @@ export class StatsApi extends BaseApi {
       .url(`stats/championship/${championshipId}/${seasonStartingYear}`)
       .get()
       .json((res) => res as ServerPlayer[]);
+
+  /**
+   * Fetch player details (including advanced statistics) for a given season
+   *
+   * @param {string} playerId Player unique id
+   * @param {number} seasonStartingYear Year corresponding to the beginning of a season
+   */
+  getPlayerDetails = (playerId: string, seasonStartingYear: number): Promise<ServerPlayerDetails> =>
+    this.unauthenticatedClient
+      .url(`player/${playerId}`)
+      .query({ season: seasonStartingYear })
+      .get()
+      .json((res) => res as ServerPlayerDetails);
 }

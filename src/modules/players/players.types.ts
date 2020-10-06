@@ -37,11 +37,106 @@ export const CHAMPIONSHIP_IDS = [
   ChampionshipId.SerieA,
 ];
 
-export interface BasicStats {
+export interface PlayerBasicStats {
   avgRate: number | '-';
   sumGoals: number;
   currentChampionship: number;
   percentageStarter: number;
+}
+
+export interface AppearancesStats {
+  standBy: number;
+  standIn: number;
+  starter: number;
+  total: number;
+}
+
+export interface MatchRate {
+  day: number;
+  matchId: string;
+}
+
+export interface MatchStats {
+  matchId: string;
+  date: Date;
+  day: number;
+  info: {
+    goals: number;
+    minsPlayed: number;
+    rate: number;
+    sub: number;
+  };
+  score: {
+    away: number;
+    home: number;
+    scoreAway: number;
+    scoreHome: number;
+  };
+  stats: {
+    clean_sheet: number;
+    dive_save: number;
+    error_lead_to_goal: number;
+    goals_conceded: 3;
+    penalty_faced: number;
+    penalty_save: number;
+    red_card: number;
+    saves: number;
+    stand_save: number;
+    yellow_card: number;
+  };
+}
+
+export interface PlayerAdvancedStats {
+  playerStatsId: string;
+  currentChampionship: ChampionshipId;
+  appearances: AppearancesStats;
+  avgRate: number;
+  lastFiveRate: Record<string, MatchRate>;
+  matches: MatchStats[];
+  goalsConcededByMatch: number;
+  percentageSaveShot: number;
+  percentageStarter: number;
+  sumCleanSheet: number;
+  sumDeflect: number;
+  sumGoals: number;
+  sumPenaltyFaced: number;
+  sumPenaltySave: number;
+  sumRedCard: number;
+  sumSaves: number;
+  sumYellowCard: number;
+}
+
+export interface ChampionshipStats {
+  active: 0 | 1;
+  availableSince: Date;
+  championship: ChampionshipId;
+  teamId: string;
+  club: string;
+  joinDate: Date;
+  quotation: number;
+}
+
+export interface PlayerDetails {
+  playerId: string;
+  firstname: string | null;
+  lastname: string;
+  position: number;
+  fieldPosition: FieldPosition;
+  teamId: number;
+  club: string;
+  quotation: number;
+  calendar: string;
+  championship: ChampionshipId;
+  championships: Record<string, ChampionshipStats>;
+  availableSeasons: number[];
+  type: 'player';
+  active: 0 | 1;
+  birthDate: Date;
+  jerseyNum: string;
+  joinDate: Date;
+  twitter: string;
+  updatedAt: Date;
+  advancedStats: PlayerAdvancedStats;
 }
 
 export interface Player {
@@ -51,13 +146,19 @@ export interface Player {
   position: number;
   fieldPosition: FieldPosition;
   teamId: number;
-  quotation: number;
   club: string;
-  basicStats: BasicStats;
+  quotation: number;
+  basicStats: PlayerBasicStats;
 }
 
 export type PlayersById = Record<string, Player>;
 export type PlayersBySeason = Record<number, PlayersById>;
 export type PlayersByChampionship = Record<ChampionshipId, PlayersBySeason>;
 
-export interface PlayersState extends PlayersByChampionship {}
+export type DetailedPlayersById = Record<string, PlayerDetails>;
+export type DetailedPlayersBySeason = Record<number, DetailedPlayersById>;
+
+export interface PlayersState {
+  playersByChampionship: PlayersByChampionship;
+  detailedPlayersBySeason: DetailedPlayersBySeason;
+}
