@@ -5,6 +5,7 @@ import styled from '../../../lib/styledComponents';
 import { Loader, Page } from '../../../components';
 import { usePlayerDetails } from '../../../services';
 import { PlayerCardHeader } from '../components';
+import { StatsSummary } from '../components/StatsSummary';
 
 export const PlayerCardInfo: FunctionComponent<NavigationStackScreenProps> = ({ navigation }) => {
   const playerId: string = navigation.getParam('playerId');
@@ -20,7 +21,22 @@ export const PlayerCardInfo: FunctionComponent<NavigationStackScreenProps> = ({ 
     return null;
   }
 
-  const { firstname, lastname, fieldPosition, club } = playerDetails;
+  const {
+    firstname,
+    lastname,
+    fieldPosition,
+    club,
+    quotation,
+    advancedStats: {
+      avgRate,
+      sumGoals,
+      sumGoalAssist,
+      sumPenalties,
+      sumYellowCard,
+      sumRedCard,
+      appearances: { starter, standIn },
+    },
+  } = playerDetails;
 
   return (
     <PageContainer>
@@ -29,6 +45,18 @@ export const PlayerCardInfo: FunctionComponent<NavigationStackScreenProps> = ({ 
         lastname={lastname}
         fieldPosition={fieldPosition}
         club={club}
+      />
+      <StatsSummary
+        season={season}
+        avgRate={avgRate}
+        sumGoals={sumGoals}
+        sumGoalAssist={sumGoalAssist}
+        sumPenalties={sumPenalties}
+        sumYellowCard={sumYellowCard}
+        sumRedCard={sumRedCard}
+        quotation={quotation}
+        starter={starter}
+        standIn={standIn}
       />
     </PageContainer>
   );

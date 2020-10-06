@@ -99,7 +99,8 @@ export interface PlayerAdvancedStats {
   percentageSaveShot: number;
   percentageStarter: number;
   sumCleanSheet: number;
-  sumDeflect: number;
+  sumGoalAssist: number;
+  sumPenalties: number;
   sumGoals: number;
   sumPenaltyFaced: number;
   sumPenaltySave: number;

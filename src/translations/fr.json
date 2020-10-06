@@ -43,6 +43,14 @@
     "tabHeaders": {
       "playerInfo": "Ses Stats.",
       "playerMatches": "Ses Matchs"
+    },
+    "statsSummary": {
+      "avgRate": "Note moyenne",
+      "sumGoalsIncludingPenalties": "Buts (pén.)",
+      "starterAndStandIn": "Titulaire (remp.)",
+      "quotation": "Cote",
+      "sumGoalAssist": "Passes dé.",
+      "yellowAndRedCards": "Cartons"
     }
   }
 }

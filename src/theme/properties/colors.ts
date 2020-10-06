@@ -5,6 +5,8 @@ export enum ThemeColor {
   LightGrey = 'lightGrey',
   Blue = 'blue',
   Green = 'green',
+  Yellow = 'yellow',
+  Red = 'red',
 }
 
 export const colors: Record<ThemeColor, string> = {
@@ -14,4 +16,6 @@ export const colors: Record<ThemeColor, string> = {
   lightGrey: 'rgb(245, 246, 248)',
   blue: 'rgb(64, 84, 204)',
   green: 'rgb(69, 201, 69)',
+  yellow: 'rgb(231, 167, 58)',
+  red: 'rgb(186, 53, 47)',
 };

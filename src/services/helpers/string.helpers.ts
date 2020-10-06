@@ -29,3 +29,5 @@ export const computeNameFromFirstAndLastName = (lastname: string, firstname: str
 
   return `${firstname} ${lastname}`;
 };
+
+export const computeSeasonLabel = (year: number) => `${year}/${year + 1}`;

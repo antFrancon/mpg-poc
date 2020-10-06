@@ -135,7 +135,7 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
         }))}
       />
     ),
-    []
+    [season]
   );
 
   const playerKeyExtractor = useMemoOne(() => (item: Player) => `player-${item.playerId}`, []);
