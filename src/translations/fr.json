@@ -51,6 +51,13 @@
       "quotation": "Cote",
       "sumGoalAssist": "Passes dé.",
       "yellowAndRedCards": "Cartons"
+    },
+    "matches": {
+      "day": "Journée",
+      "dayValue": "J{{day}}",
+      "teams": "Équipes",
+      "score": "Score",
+      "rate": "Note"
     }
   }
 }

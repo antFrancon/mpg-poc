@@ -60,7 +60,7 @@ export interface MatchRate {
 
 export interface MatchStats {
   matchId: string;
-  date: Date;
+  date: string;
   day: number;
   info: {
     goals: number;
@@ -111,11 +111,11 @@ export interface PlayerAdvancedStats {
 
 export interface ChampionshipStats {
   active: boolean;
-  availableSince: Date;
+  availableSince: string;
   championship: ChampionshipId;
   teamId: string;
   club: string;
-  joinDate: Date;
+  joinDate: string;
   quotation: number;
 }
 
@@ -134,11 +134,11 @@ export interface PlayerDetails {
   availableSeasons: number[];
   type: string;
   active: boolean;
-  birthDate: Date;
+  birthDate: string;
   jerseyNum: string;
-  joinDate: Date;
+  joinDate: string;
   twitter: string;
-  updatedAt: Date;
+  updatedAt: string;
   advancedStats: PlayerAdvancedStats;
 }
 

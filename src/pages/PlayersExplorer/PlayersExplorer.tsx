@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, TouchableOpacity } from 'react-native';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { useMemoOne } from 'use-memo-one';
 
-import { Page, Loader } from '../../components';
+import { Page, Loader, Text, ListHeader, ListItem } from '../../components';
 import styled, { css } from '../../lib/styledComponents';
 import {
   ChampionshipId,
@@ -20,8 +20,9 @@ import {
 import { I18n, getFormattedNumber, getFormattedPercentage } from '../../lib';
 import { useDispatchCallback } from '../../services';
 import { Routes } from '../../navigation';
+import { TextType, ThemeColor } from '../../theme/properties';
 
-import { PlayersListHeader, PlayersListItem, OptionPicker, TextFilter } from './components';
+import { OptionPicker, TextFilter } from './components';
 
 interface PlayersListColumnConfig {
   key: string;
@@ -112,7 +113,7 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
 
   const renderPlayersListHeader = useMemoOne(
     () => () => (
-      <PlayersListHeader
+      <ListHeader
         headerItems={PLAYERS_LIST_COLUMNS_CONFIG.map(({ key, flex }) => ({
           key,
           label: I18n.t(`PlayersExplorer.${key}.short`),
@@ -125,15 +126,22 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
 
   const renderPlayersListItem = useMemoOne(
     () => ({ item }: { item: Player }) => (
-      <PlayersListItem
-        onPress={() => navigation.navigate(Routes.PlayerCard, { playerId: item.playerId, season })}
-        rowItems={PLAYERS_LIST_COLUMNS_CONFIG.map(({ key, flex, valueFormatter, emphasis }) => ({
-          key: `${item.playerId}-${key}`,
-          value: valueFormatter(item),
-          flex,
-          emphasis,
-        }))}
-      />
+      <TouchableOpacity
+        onPress={() => navigation.navigate(Routes.PlayerCard, { playerId: item.playerId, season })}>
+        <ListItem
+          rowItems={PLAYERS_LIST_COLUMNS_CONFIG.map(
+            ({ key, flex, valueFormatter, emphasis = false }) => ({
+              key: `${item.playerId}-${key}`,
+              renderValue: () => (
+                <PlayersListItemValue emphasis={emphasis}>
+                  {valueFormatter(item)}
+                </PlayersListItemValue>
+              ),
+              flex,
+            })
+          )}
+        />
+      </TouchableOpacity>
     ),
     [season]
   );
@@ -235,6 +243,13 @@ const FiltersRow = styled(View)`
     padding: ${theme.spacing.x1}px;
   `}
 `;
+
+const PlayersListItemValue = styled(Text).attrs(({ emphasis }: { emphasis: boolean }) => ({
+  color: ThemeColor.Black,
+  type: emphasis ? TextType.TabRowBold : TextType.TabRow,
+  numberOfLines: 1,
+  ellipsizeMode: 'tail',
+}))<{ emphasis: boolean }>``;
 
 const PlayersList = React.memo(styled(FlatList as new () => FlatList<Player>)`
   flex: 1;

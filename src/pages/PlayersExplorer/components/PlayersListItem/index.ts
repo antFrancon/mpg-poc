@@ -1,1 +1,0 @@
-export { PlayersListItem } from './PlayersListItem';

@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { View } from 'react-native';
 
-import styled, { css } from '../../../../lib/styledComponents';
-import { Text } from '../../../../components';
-import { TextType, ThemeColor } from '../../../../theme/properties';
+import { Text } from '../Text';
+import styled, { css } from '../../lib/styledComponents';
+import { TextType, ThemeColor } from '../../theme/properties';
 
 interface HeaderItem {
   key: string;
@@ -11,25 +11,23 @@ interface HeaderItem {
   flex: number;
 }
 
-interface PlayersListHeaderProps {
+interface ListHeaderProps {
   headerItems: HeaderItem[];
 }
 
-export const PlayersListHeader: FunctionComponent<PlayersListHeaderProps> = React.memo(
-  ({ headerItems }) => {
-    return (
-      <LabelsRow>
-        {headerItems.map(({ key, label, flex }) => {
-          return (
-            <LabelContainer key={key} flex={flex}>
-              <Label>{label}</Label>
-            </LabelContainer>
-          );
-        })}
-      </LabelsRow>
-    );
-  }
-);
+export const ListHeader: FunctionComponent<ListHeaderProps> = React.memo(({ headerItems }) => {
+  return (
+    <LabelsRow>
+      {headerItems.map(({ key, label, flex }) => {
+        return (
+          <LabelContainer key={key} flex={flex}>
+            <Label>{label}</Label>
+          </LabelContainer>
+        );
+      })}
+    </LabelsRow>
+  );
+});
 
 const LabelsRow = styled(View)`
   flex-direction: row;

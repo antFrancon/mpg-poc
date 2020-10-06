@@ -104,11 +104,11 @@ export const fromServerPlayerDetailsToAppPlayerDetailsDto = ({
   availableSeasons: availableSeasons.map((season) => parseInt(season, 10)),
   type,
   active: Boolean(active),
-  birthDate: new Date(birthDate),
+  birthDate: birthDate,
   jerseyNum,
-  joinDate: new Date(joinDate),
+  joinDate: joinDate,
   twitter,
-  updatedAt: new Date(updatedAt),
+  updatedAt: updatedAt,
   championships: Object.keys(championships).reduce((acc, curr) => {
     const {
       active: championshipActive,
@@ -124,11 +124,11 @@ export const fromServerPlayerDetailsToAppPlayerDetailsDto = ({
       ...acc,
       [parseInt(curr, 10) as ChampionshipId]: {
         active: Boolean(championshipActive),
-        availableSince: new Date(championshipAvailableSince),
+        availableSince: championshipAvailableSince,
         championship: championshipChampionshipId as ChampionshipId,
         teamId: championshipTeamId,
         club: championshipClub,
-        joinDate: new Date(championshipJoinDate),
+        joinDate: championshipJoinDate,
         quotation: championshipQuotation,
       } as ChampionshipStats,
     };
@@ -150,7 +150,7 @@ export const fromServerPlayerDetailsToAppPlayerDetailsDto = ({
       }) =>
         ({
           matchId,
-          date: new Date(matchDate),
+          date: matchDate,
           day: matchDay,
           info: matchInfo,
           score: matchScore,
