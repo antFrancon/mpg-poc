@@ -1,0 +1,1 @@
+export { PlayerCardMatches } from './PlayerCardMatches';

@@ -1,0 +1,63 @@
+{
+  "GeneralErrors": {
+    "errorTitle": "Une erreur est survenue.",
+    "retry": "Réessayez.",
+    "internalServerErrorMessage": "Oups ! Une erreur est survenue ! Merci de réessayer :)",
+    "modalOkButton": "OK"
+  },
+  "PlayersExplorer": {
+    "playerName": { "short": "Joueur", "full": "Nom Joueur" },
+    "fieldPosition": { "short": "Pos.", "full": "Poste" },
+    "club": { "short": "Eq.", "full": "Equipe" },
+    "avgRate": { "short": "Not.", "full": "Note" },
+    "sumGoals": { "short": "Bu.", "full": "Buts" },
+    "quotation": { "short": "Cot.", "full": "Cote" },
+    "percentageStarter": { "short": "Titu.", "full": "Titulaire" },
+    "championshipLabels": {
+      "Ligue1": "Ligue 1",
+      "Ligue2": "Ligue 2",
+      "PremiereLeague": "Premiere League",
+      "LaLiga": "La Liga",
+      "SerieA": "Serie A"
+    },
+    "fieldPositionLabels": {
+      "short": {
+        "GK": "G",
+        "CD": "DC",
+        "LD": "DL",
+        "DM": "MD",
+        "OM": "MO",
+        "S": "A"
+      },
+      "full": {
+        "GK": "Gardien",
+        "CD": "Défenseur central",
+        "LD": "Défenseur latéral",
+        "DM": "Milieu défensif",
+        "OM": "Milieu offensif",
+        "S": "Attaquant"
+      }
+    }
+  },
+  "PlayerCard": {
+    "tabHeaders": {
+      "playerInfo": "Ses Stats.",
+      "playerMatches": "Ses Matchs"
+    },
+    "statsSummary": {
+      "avgRate": "Note moyenne",
+      "sumGoalsIncludingPenalties": "Buts (pén.)",
+      "starterAndStandIn": "Titulaire (remp.)",
+      "quotation": "Cote",
+      "sumGoalAssist": "Passes dé.",
+      "yellowAndRedCards": "Cartons"
+    },
+    "matches": {
+      "day": "Journée",
+      "dayValue": "J{{day}}",
+      "teams": "Équipes",
+      "score": "Score",
+      "rate": "Note"
+    }
+  }
+}
