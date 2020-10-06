@@ -19,6 +19,7 @@ import {
 } from '../../modules';
 import { I18n, getFormattedNumber, getFormattedPercentage } from '../../lib';
 import { useDispatchCallback } from '../../services';
+import { Routes } from '../../navigation';
 
 import { PlayersListHeader, PlayersListItem, OptionPicker, TextFilter } from './components';
 
@@ -125,6 +126,7 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
   const renderPlayersListItem = useMemoOne(
     () => ({ item }: { item: Player }) => (
       <PlayersListItem
+        onPress={() => navigation.navigate(Routes.PlayerCard, { playerId: item.playerId })}
         rowItems={PLAYERS_LIST_COLUMNS_CONFIG.map(({ key, flex, valueFormatter, emphasis }) => ({
           key: `${item.playerId}-${key}`,
           value: valueFormatter(item),

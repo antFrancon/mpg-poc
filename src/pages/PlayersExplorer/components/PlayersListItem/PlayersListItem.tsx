@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 import styled, { css } from '../../../../lib/styledComponents';
 import { Text } from '../../../../components';
@@ -12,14 +12,14 @@ interface RowItem {
   emphasis?: boolean;
 }
 
-interface PlayersListItemProps {
+interface PlayersListItemProps extends TouchableOpacityProps {
   rowItems: RowItem[];
 }
 
 export const PlayersListItem: FunctionComponent<PlayersListItemProps> = React.memo(
-  ({ rowItems }) => {
+  ({ rowItems, onPress }) => {
     return (
-      <ValuesRow>
+      <ValuesRow onPress={onPress}>
         {rowItems.map(({ key, value, flex, emphasis = false }) => {
           return (
             <ValueContainer key={key} flex={flex}>
@@ -32,7 +32,7 @@ export const PlayersListItem: FunctionComponent<PlayersListItemProps> = React.me
   }
 );
 
-const ValuesRow = styled(View)`
+const ValuesRow = styled(TouchableOpacity)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

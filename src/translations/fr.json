@@ -38,5 +38,11 @@
         "S": "Attaquant"
       }
     }
+  },
+  "PlayerCard": {
+    "tabHeaders": {
+      "playerInfo": "Info.",
+      "playerMatches": "Matches"
+    }
   }
 }
