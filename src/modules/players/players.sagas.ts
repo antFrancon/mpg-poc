@@ -39,9 +39,11 @@ export function* getPlayerDetailsSaga(
 ) {
   const { playerId, season } = action.payload;
 
+  const rawPlayerId = playerId.replace('player_', '');
+
   const serverPlayerDetails: ServerPlayerDetails = yield call(
     statsApiClient.getPlayerDetails,
-    playerId,
+    rawPlayerId,
     season
   );
 

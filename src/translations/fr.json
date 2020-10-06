@@ -41,8 +41,8 @@
   },
   "PlayerCard": {
     "tabHeaders": {
-      "playerInfo": "Info.",
-      "playerMatches": "Matches"
+      "playerInfo": "Ses Stats.",
+      "playerMatches": "Ses Matchs"
     }
   }
 }

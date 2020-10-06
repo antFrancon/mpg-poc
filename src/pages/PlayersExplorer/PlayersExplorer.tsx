@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FlatList, View, ActivityIndicator } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { useMemoOne } from 'use-memo-one';
 
-import { Page } from '../../components';
+import { Page, Loader } from '../../components';
 import styled, { css } from '../../lib/styledComponents';
 import {
   ChampionshipId,
@@ -126,7 +126,7 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
   const renderPlayersListItem = useMemoOne(
     () => ({ item }: { item: Player }) => (
       <PlayersListItem
-        onPress={() => navigation.navigate(Routes.PlayerCard, { playerId: item.playerId })}
+        onPress={() => navigation.navigate(Routes.PlayerCard, { playerId: item.playerId, season })}
         rowItems={PLAYERS_LIST_COLUMNS_CONFIG.map(({ key, flex, valueFormatter, emphasis }) => ({
           key: `${item.playerId}-${key}`,
           value: valueFormatter(item),
@@ -198,17 +198,9 @@ export const PlayersExplorer: FunctionComponent<NavigationStackScreenProps> = ({
     [fieldPosition, setFieldPosition]
   );
 
-  const renderEmptyPlayersList = useMemoOne(
-    () => () =>
-      isLoadingPlayers ? (
-        <LoaderContainer>
-          <Loader />
-        </LoaderContainer>
-      ) : (
-        <></>
-      ),
-    [isLoadingPlayers]
-  );
+  const renderEmptyPlayersList = useMemoOne(() => () => (isLoadingPlayers ? <Loader /> : <></>), [
+    isLoadingPlayers,
+  ]);
 
   return (
     <PageContainer>
@@ -247,13 +239,3 @@ const FiltersRow = styled(View)`
 const PlayersList = React.memo(styled(FlatList as new () => FlatList<Player>)`
   flex: 1;
 `);
-
-const LoaderContainer = styled(View)`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Loader = styled(ActivityIndicator).attrs(({ theme }) => ({
-  color: theme.colors.green,
-}))``;

@@ -27,7 +27,7 @@ export class StatsApi extends BaseApi {
    */
   getPlayerDetails = (playerId: string, seasonStartingYear: number): Promise<ServerPlayerDetails> =>
     this.unauthenticatedClient
-      .url(`player/${playerId}`)
+      .url(`stats/player/${playerId}`)
       .query({ season: seasonStartingYear })
       .get()
       .json((res) => res as ServerPlayerDetails);

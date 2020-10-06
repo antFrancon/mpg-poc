@@ -5,6 +5,7 @@ export enum TextType {
   TabRow = 'tabRow',
   TabRowBold = 'tabRowBold',
   Title = 'title',
+  SubTitle = 'subTitle',
   Body = 'body',
   Button = 'button',
   SmallButton = 'smallButton',
@@ -45,6 +46,11 @@ export const fonts: Record<TextType, FontType> = {
   title: {
     family: 'System',
     size: 18,
+    weight: 'bold',
+  },
+  subTitle: {
+    family: 'System',
+    size: 14,
     weight: 'bold',
   },
   body: {

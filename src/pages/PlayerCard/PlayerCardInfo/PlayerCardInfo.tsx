@@ -1,30 +1,39 @@
 import React, { FunctionComponent } from 'react';
-import { View } from 'react-native';
-import {} from 'react-native-gesture-handler';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 
-import styled, { css } from '../../../lib/styledComponents';
-import { Text } from '../../../components';
-import { TextType, ThemeColor } from '../../../theme/properties';
+import styled from '../../../lib/styledComponents';
+import { Loader, Page } from '../../../components';
+import { usePlayerDetails } from '../../../services';
+import { PlayerCardHeader } from '../components';
 
-export const PlayerCardInfo: FunctionComponent<NavigationStackScreenProps> = ({}) => {
+export const PlayerCardInfo: FunctionComponent<NavigationStackScreenProps> = ({ navigation }) => {
+  const playerId: string = navigation.getParam('playerId');
+  const season: number = navigation.getParam('season');
+
+  const { playerDetails, isLoadingPlayerDetails } = usePlayerDetails(playerId, season);
+
+  if (!playerDetails) {
+    if (isLoadingPlayerDetails) {
+      return <Loader />;
+    }
+
+    return null;
+  }
+
+  const { firstname, lastname, fieldPosition, club } = playerDetails;
+
   return (
-    <Container>
-      <Label>{'Hello'}</Label>
-    </Container>
+    <PageContainer>
+      <PlayerCardHeader
+        firstname={firstname}
+        lastname={lastname}
+        fieldPosition={fieldPosition}
+        club={club}
+      />
+    </PageContainer>
   );
 };
 
-const Container = styled(View)`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  ${({ theme }) => css`
-    padding: ${theme.spacing.x1}px;
-  `}
+const PageContainer = styled(Page)`
+  padding: 0px;
 `;
-
-const Label = styled(Text).attrs({
-  color: ThemeColor.DarkGrey,
-  type: TextType.TabHeader,
-})``;

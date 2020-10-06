@@ -21,3 +21,11 @@ export const areStringsCloseToEachOther = (inputString: string, comparedTo: stri
 
   return similarityRate > 0.5;
 };
+
+export const computeNameFromFirstAndLastName = (lastname: string, firstname: string | null) => {
+  if (firstname === null) {
+    return lastname;
+  }
+
+  return `${firstname} ${lastname}`;
+};

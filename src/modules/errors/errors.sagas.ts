@@ -12,6 +12,7 @@ export const handleErrors = (saga: (...args: any[]) => any) =>
 
       return result;
     } catch (err) {
+      console.log('Error in saga', err);
       yield put(ErrorsActions.showError(ErrorName.InternalServerError));
     }
   };
